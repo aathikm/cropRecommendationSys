@@ -3,5 +3,6 @@ numpy
 matplotlib
 scikit-learn
 seaborn
-pickle5
+Flask
+xgboost
 tkinter-page == 0.0.5
