@@ -1,4 +1,3 @@
-from tkinter import N
 from flask import Flask, redirect, request, render_template
 
 from src.pipelines.prediction_pipeline import PredictionPipeline, GetCustomData
