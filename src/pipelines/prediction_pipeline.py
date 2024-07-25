@@ -22,9 +22,9 @@ class PredictionPipeline:
             logging.info("training pipeline started in prediction pipeline")
             logging.info("training pipeline sucessfully ran")
             
-            model_path = os.path.join("artifacts", "model.pkl")
-            preprocessor_path = os.path.join("artifacts", "preprocessor.pkl")
-            encoded_df_path = os.path.join("artifacts", "encoded_df.csv")
+            model_path = os.path.join("models", "model.pkl")
+            preprocessor_path = os.path.join("models", "preprocessor.pkl")
+            encoded_df_path = os.path.join("models", "encoded_df.csv")
             
             logging.info(f"data: {features}")
             model= load_object(model_path)

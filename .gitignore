@@ -1,3 +1,5 @@
 venv
 artifacts/*
 logs/*
+azure_config.json
+model_deployment.ipynb
