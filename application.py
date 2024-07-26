@@ -1,11 +1,11 @@
-from flask import Flask, redirect, request, render_template
+from flask import Flask, redirect, request, render_template, jsonify
 from flask_cors import CORS
 
 from src.pipelines.prediction_pipeline import PredictionPipeline, GetCustomData
 from src.loggingInfo.loggingFile import logging
 
 app = Flask(__name__)
-cors = CORS(app)
+CORS(app)
 # host = "127.0.0.1"
 # port = 5000
 
@@ -30,9 +30,9 @@ def predict_datapoint():
                 rainfall=float(request.form.get("rainfall"))           
             )
             data = customData_pipe.get_data()
-            print(data)
+            # print(data)
             logging.info(f"the data is: {data}")
-            print((data.info()))
+            # print((data.info()))
             predict_pipe = PredictionPipeline()
             result = predict_pipe.predict(data)
             print(result)
@@ -40,6 +40,35 @@ def predict_datapoint():
         except Exception as e:
             logging.error(f"Error during prediction: {e}")
             return jsonify({"error": str(e)}), 500
+
+@app.route("/predict1", methods = ["GET", "POST"])
+def predict_datapoint1():
+    logging.info("data prediction started...")
+    if request.method == "GET":
+        return render_template("form.html")
+    else:
+        try:
+            customData_pipe = GetCustomData(
+                N=float(request.json.get("n")),
+                P=float(request.json.get("p")),
+                K=float(request.json.get("k")),
+                temperature=float(request.json.get("temperature")),
+                humidity=float(request.json.get("humidity")),
+                ph=float(request.json.get("ph")),
+                rainfall=float(request.json.get("rainfall"))           
+            )
+            data = customData_pipe.get_data()
+            # print(data)
+            logging.info(f"the data is: {data}")
+            # print((data.info()))
+            predict_pipe = PredictionPipeline()
+            result = predict_pipe.predict(data)
+            print(result)
+            return jsonify(result_val=result)
+        except Exception as e:
+            logging.error(f"Error during prediction: {e}")
+            return jsonify({"error": str(e)}), 500
+
 
 if __name__ == "__main__":
     # print(f"Check the website using the following link: http://{host}:{port}")
