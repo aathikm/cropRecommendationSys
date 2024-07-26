@@ -4,5 +4,6 @@ matplotlib
 scikit-learn
 seaborn
 Flask
+Flask-Cors
 xgboost
 tkinter-page == 0.0.5
